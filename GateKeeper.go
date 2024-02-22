@@ -5,31 +5,30 @@ import (
 	"time"
 )
 
-func main() {
+var Message string = "Welkom bij Fonteyn Vakantieparken"
+var groet string
+var timeSelect int
 
-	TimeNow := time.Now()
-	HourNow := TimeNow.Hour()
-	var Message string = "Welkom bij Fonteyn Vakantieparken"
-
-	var groet string
-
-	var timeSelect int
-
-	if HourNow < 7 || HourNow > 23 {
+func timechange(Hour int) {
+	if Hour < 7 || Hour > 23 {
 		timeSelect = 0
 	}
 
-	if HourNow < 12 || HourNow > 7 {
+	if Hour < 12 || Hour > 7 {
 		timeSelect = 1
 	}
 
-	if HourNow < 18 || HourNow > 12 {
+	if Hour < 18 || Hour > 12 {
 		timeSelect = 2
 	}
 
-	if HourNow < 23 || HourNow > 18 {
+	if Hour < 23 || Hour > 18 {
 		timeSelect = 3
 	}
+
+}
+
+func groetchange() {
 
 	switch timeSelect {
 	case 0:
@@ -44,6 +43,16 @@ func main() {
 	case 3:
 		groet = fmt.Sprintf("Goedenavond, %v\n", Message)
 	}
+
+}
+
+func main() {
+
+	TimeNow := time.Now()
+	HourNow := TimeNow.Hour()
+
+	timechange(HourNow)
+	groetchange()
 
 	fmt.Print(groet)
 	fmt.Scanln()

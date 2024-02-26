@@ -6,8 +6,10 @@ import (
 )
 
 var Message string = "Welkom bij Fonteyn Vakantieparken"
-var groet string
+var MessageGeenToegang string = "U heeft helaas geen toegang tot het parkeerterrein"
 var timeSelect int
+var kenteken string
+var groet string
 
 func timechange(Hour int) {
 	if Hour < 7 || Hour > 23 {
@@ -46,14 +48,32 @@ func groetchange() {
 
 }
 
-func main() {
+func kentekencontrole(geldigKentekens []string) bool {
 
+	for i := 0; i < len(geldigKentekens); i++ {
+		if kenteken == geldigKentekens[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func main() {
 	TimeNow := time.Now()
 	HourNow := TimeNow.Hour()
 
 	timechange(HourNow)
 	groetchange()
 
-	fmt.Print(groet)
+	fmt.Print("Type je kenteken in: ")
+	fmt.Scan(&kenteken)
+
+	geldigKentekens := []string{"AB-12-CD", "XY-34-ZZ", "GH-56-IJ", "KL-78-MN"}
+
+	if kentekencontrole(geldigKentekens) {
+		fmt.Println(groet)
+	} else {
+		fmt.Println(MessageGeenToegang)
+	}
 	fmt.Scanln()
 }
